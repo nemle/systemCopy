@@ -18,17 +18,21 @@ gcc -bundle -undefined dynamic_lookup -DKXVER=4 -I $QHOME/c copy.c -o libcopy.so
 Before starting q you will then want to copy libcopy.so into $QHOME/m64
 
 TO TEST FROM Q  
-Start q with 2 slaves and a file call source.txt in the current directory.
+Start q with 2 slaves and a file called source.txt in the current directory.
 
 ///// THE PROBLEM /////  
+````markdown
 q) func:{[destName] system"cp source.txt ",destName}  
-q) func peach ("dest1.txt";"dest2.txt")  
+q) func peach ("dest1.txt";"dest2.txt")
+````
 -> Throws a "sys" error  
 
 ///// SOLUTION WITH C API FUNCTION /////  
-q) systemCp:`libcopy 2: (`copy_file;3)  
-q) func:{[destName] systemCp[`source.txt;destName;1000i]}  
-q) func peach `dest1.txt`dest2.txt  
+````markdown
+q) systemCp:`libcopy 2: (`copy_file;3) 
+q) func:{[destName] systemCp[`source.txt;destName;1000i]}    
+q) func peach `dest1.txt`dest2.txt
+````
 -> no error thrown  
 -> buffer of 1000 bytes specified and can be adjusted as seen fit  
 -> type error thrown if source/dest params are not symbols and buffer is not integer  
