@@ -1,5 +1,4 @@
 # C Copy API for kdb+ 
-Copy function written in C for kdb+ using KX C API.
 
 A problem faced when running system commands with peach is that you get a sys error thrown.  
 This can be avoided by replacing the system"cp" with a C function that has been loaded into kdb+.  
